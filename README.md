@@ -2,29 +2,41 @@
 
 **Cosmetic, champion-themed screen effects for League of Legends (Windows desktop app).**
 
-When you cast an ability or your ultimate, Overleague plays a short themed animation along the **edges and corners** of your own screen. It is decoration only: it never covers the middle of the screen, never shows information about other players, and never touches the game.
+When you cast an ability or your ultimate, Overleague plays a short themed animation on your own screen, matched to your champion and skin. It is decoration: it does not read or change the game, does not send input, and does not look for other players on your screen.
+
+Ten champions are available today. **Every champion is planned**; the rest are shown as locked in the app until their effects are made.
 
 > Overleague isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
 
 ---
+
+## Try it (review build, English, no sign-in)
+
+1. Download **[OverleagueReview.exe](https://github.com/freeiam1125-glitch/champion-overlay/raw/review/OverleagueReview.exe)** (about 25 MB, single file).
+2. Run it. It runs from wherever you saved it: nothing is installed, there is no sign-in, and it does not update itself. It creates a few small settings/log files next to the exe. Closing the window leaves it in the system tray; choose **Quit** there to stop it.
+3. Pick an available champion and press **Preview** to see its effects without a game, or start a game (Practice Tool works) on that champion.
+
+Windows SmartScreen may warn that the file is unrecognised because it is not code-signed yet.
+
+The review build is the same program as the regular build with three differences: the window is in English, it is open to everyone, and it has no installer or auto-updater. The regular build is in Korean and, while in closed testing, only turns on for testers on an allow-list.
 
 ## At a glance
 
 | | |
 |---|---|
 | Platform | Windows 10 / 11, single `.exe` |
-| Game | League of Legends (Summoner's Rift and other modes that expose the Live Client Data API) |
+| Game | League of Legends |
 | Price | Free (closed testing with a small group) |
-| Data source | Riot **Live Client Data API** on the local machine, plus plain screen captures of the player's own ability bar |
-| Game memory / files / input | **Not accessed, not modified, not sent** |
-| Information about enemies | **None located on screen, none added to the screen** |
-| Network | Only GitHub, to check for updates and the tester allow-list. No player data is uploaded. |
+| Data sources | Riot **Live Client Data API** on the local machine; plain screen captures of the player's **own** ability bar and own name plate |
+| Game memory / game files / input to the game | **Not read, not modified, not sent** |
+| Enemy champions | **Not searched for on screen.** No positions, health, cooldowns or timers of other players are shown |
+| Network | Local Live Client Data API; public icon downloads; (regular build only) GitHub for updates and the tester allow-list. No player data is uploaded |
 
 ## What it looks like
 
-The pictures below are rendered by the app's own preview (no game running). The dark area stands in for the game view.
+The pictures below are rendered by the app's own preview with no game running. The dark area stands in for the game view.
 
-**Idle** – small corner ornaments, and for some champions a gauge of the player's *own* resource.
+**Idle** – small corner ornaments, and for some champions a gauge of the player's own resource.
 
 ![Idle state](docs/effect_idle.png)
 
@@ -38,60 +50,66 @@ The pictures below are rendered by the app's own preview (no game running). The 
 
 ![Azir – Emperor's Divide](docs/effect_azir.png)
 
-**The desktop window** – choose which champions' effects are on, and preview them without a game. (The UI is currently in Korean.)
+**The desktop window** – choose which champions' effects are on, and preview them without a game.
 
 ![App window](docs/app_window.png)
 
+### Where on the screen
+
+- **Aatrox, Aphelios, Azir, Pantheon, Warwick, Yasuo, Yone, Zac:** effects are drawn only along the edges, the corners and a thin strip at the top. The middle of the screen is left clear.
+- **Master Yi and Mordekaiser** (the first two that were made): during the ultimate they draw a translucent full-screen frame — a vignette that is strongest at the edges, with light streaks and particles that can pass over the play area. Nothing opaque is placed over the middle.
+
 ## Supported champions
 
-Aatrox, Aphelios, Azir, Master Yi, Mordekaiser, Pantheon, Warwick, Yasuo, Yone, Zac — each with variants that follow the player's current skin. Other champions are listed but locked until their effects are made.
+Aatrox, Aphelios, Azir, Master Yi, Mordekaiser, Pantheon, Warwick, Yasuo, Yone, Zac. Most have variants that follow the player's current skin. All other champions are planned.
 
 ## How it works
 
 1. **Detecting a game.** The app polls `https://127.0.0.1:2999/liveclientdata/` (Riot's official local API). If the active player is on a supported champion, that champion's overlay is created.
 2. **Knowing when to play an effect.** In order of preference:
-   - **Live Client Data API values** for the active player: champion, skin ID, ability levels, resource value (mana / energy / champion-specific bar), health, movement speed, and the event list (kills and assists that involve the player).
-     Example: Azir's abilities are recognised by the mana they cost right after the player presses the key.
-   - **The player's own ability bar**, when the API does not expose the needed state (for example, whether an ability icon has switched to its "recast" picture). The app takes an ordinary Windows screen capture (GDI `BitBlt`) of a small rectangle around the player's own ability icons at the bottom of the screen and compares it with the public ability icons.
-   - **Key state** of the player's own ability keys (`GetAsyncKeyState`), only to time the animation.
+   - **Live Client Data API values for the active player:** champion, skin ID, ability levels, resource value (mana / energy / champion bar), health, movement speed, plus the player list and the event list (kills and assists).
+     Examples: Azir's abilities are recognised by the mana they cost right after the key is pressed; Warwick's Blood Hunt by his own movement speed.
+   - **The player's own ability bar,** when the API does not expose the needed state (for example whether an ability icon has switched to its "recast" picture, or is on cooldown). The app takes an ordinary Windows screen capture (GDI `BitBlt`) of a small rectangle around the player's own ability icons at the bottom of the screen and compares it with the public ability icons.
+   - **The player's own name plate.** To blink the ornaments red while the player's own champion is crowd-controlled, the app looks at the name plate above the player's own champion, where the game shows the crowd-control name and its remaining-time bar.
+   - **Key state** of the player's own ability keys (`GetAsyncKeyState`, polled; no keyboard hook), only to time the animation.
 3. **Drawing.** A transparent, click-through, always-on-top window owned by Overleague draws the animation. Mouse and keyboard input pass straight through to the game.
 
 ## What it does not do
 
 - No reading or writing of game memory, no code injection, no hooks into the game process, no changes to game files.
 - No input is sent to the game; nothing is automated.
-- No detection or tracking of enemy champions on screen. No enemy positions, health, cooldowns, summoner spells, wards, or jungle/objective timers are shown.
+- No searching for enemy champions on screen. No enemy positions, health, cooldowns, summoner spells, wards, or jungle/objective timers are shown.
 - No gameplay advice, recommendations, or statistics.
-- Nothing is hidden from the game or from anti-cheat: the app is a normal, visible Windows process.
-- No player data leaves the PC.
+- Nothing is hidden from the game or from anti-cheat: the app is an ordinary, visible Windows process.
+- No player data is uploaded anywhere.
 
-### Complete list of what can appear on screen
+## Complete list of what can appear on screen
 
 - Corner ornaments themed to the player's champion and skin.
-- Edge and corner animations when the player casts an ability or ultimate, gets a takedown, or dies.
+- Animations when the player casts an ability or ultimate, gets a takedown, or dies.
 - Timers and gauges for the **player's own** state: remaining time of the player's own ability, the player's own resource bar, stacks of the player's own passive.
-- A red blink of the ornaments while the player's own champion is crowd-controlled (read from the player's own status area).
-- Mordekaiser: after the player kills the champion taken into the ultimate, that champion's portrait is shown as a "soul collected" mark (from the kill event in the Live Client Data API).
-- Master Yi, on some skins only: a row of the enemy team's champion portraits during the ultimate, greyed out when that champion has died. This uses only the player list and kill events from the Live Client Data API (the same information as the in-game scoreboard); nothing is read from the screen for it.
+- A red blink of the ornaments while the player's own champion is crowd-controlled.
+- **Master Yi (ultimate):** a row of the enemy team's champion portraits, greyed out when that champion has died, and a remaining-time gauge that grows on takedowns. This uses only the player list and kill events from the Live Client Data API (the same information as the in-game scoreboard); nothing is read from the screen for it.
+- **Mordekaiser (ultimate):** after the player kills the champion taken into Realm of Death, that champion's portrait is shown as a "soul collected" mark, again from the Live Client Data API kill event.
 
-## Network access
+## Files and network
 
-| Destination | Purpose |
-|---|---|
-| `127.0.0.1:2999` | Riot Live Client Data API (local) |
-| `api.github.com`, `raw.githubusercontent.com` | Check for a new version of the app; read the tester allow-list |
-| `raw.communitydragon.org`, `ddragon.leagueoflegends.com` | Download public ability icons / champion portraits if they are not already bundled |
+**Files written (next to the exe; the regular build uses `%LOCALAPPDATA%\Overleague`):**
 
-## Trying it (for reviewers)
+- Settings (`suite.json`, `config_*.json`) and a text log (`overlay.log`, in Korean).
+- Downloaded public ability icons and champion portraits.
+- Calibration captures: for some champions the app may save up to 30 small screenshots of the player's own bottom HUD strip (`hud_probe_*` folders) so that icon matching can be tuned. They stay on the PC and are never uploaded.
 
-1. Download [`Overleague.exe`](https://github.com/freeiam1125-glitch/champion-overlay/raw/release/Overleague.exe) and run it. It installs itself to `%LOCALAPPDATA%\Overleague` and keeps itself up to date from the `release` branch of this repository.
-2. During closed testing the app only turns on for allow-listed testers. Open **로그인 (Login)** at the top right:
-   - **라이엇 아이디로 로그인** – enter a Riot ID that has been allow-listed, or
-   - **PC 키로 로그인하기** – shows a code for this PC that we can allow-list.
+**Network destinations:**
 
-   Reviewers: please open an [issue](https://github.com/freeiam1125-glitch/champion-overlay/issues) (or reply through the Developer Portal) with your Riot ID or the PC code and it will be enabled right away.
-3. Select a champion and press **미리보기 (Preview)** to see its effects without starting a game, or start a game (Practice Tool works) on a supported champion.
+| Destination | Purpose | Build |
+|---|---|---|
+| `127.0.0.1:2999` | Riot Live Client Data API (local) | both |
+| `ddragon.leagueoflegends.com`, `raw.communitydragon.org` | Public champion portraits / ability icons that are not already bundled | both |
+| `api.github.com`, `raw.githubusercontent.com` | Check for a new version; read the tester allow-list | regular build only |
+
+The tester allow-list contains only salted hashes of Riot IDs and PC codes. The app compares locally; the player's Riot ID is not sent anywhere.
 
 ## Contact
 
-Please use this repository's [issues](https://github.com/freeiam1125-glitch/champion-overlay/issues).
+Please use this repository's [issues](https://github.com/freeiam1125-glitch/champion-overlay/issues), or reply through the Riot Developer Portal.
