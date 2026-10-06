@@ -4,7 +4,7 @@
 
 When you cast an ability or your ultimate, Overleague plays a short themed animation on your own screen, matched to your champion and skin. It is decoration: it does not read or change the game, does not send input, and does not look for other players on your screen.
 
-Ten champions are available today. **Every champion is planned**; the rest are shown as locked in the app until their effects are made.
+Ten champions have custom, hand-made effects. **Every other champion has basic effects** (corner ornaments in the champion's colors and role motif, rings on ability casts, edge light on the ultimate) until its own effects are made.
 
 > Overleague isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
 
@@ -61,7 +61,9 @@ The pictures below are rendered by the app's own preview with no game running. T
 
 ## Supported champions
 
-Aatrox, Aphelios, Azir, Master Yi, Mordekaiser, Pantheon, Warwick, Yasuo, Yone, Zac. Most have variants that follow the player's current skin. All other champions are planned.
+**Custom effects:** Aatrox, Aphelios, Azir, Master Yi, Mordekaiser, Pantheon, Warwick, Yasuo, Yone, Zac. Most have variants that follow the player's current skin.
+
+**Basic effects (all other champions):** the same program draws a generic version — corner ornaments colored from the champion's portrait with a motif by role (blades, shield, daggers, runes, bow, wings), small rings when Q/W/E are cast, and an edge-light burst on the ultimate. Champion-specific effects are planned for all of them.
 
 ## How it works
 
@@ -69,7 +71,7 @@ Aatrox, Aphelios, Azir, Master Yi, Mordekaiser, Pantheon, Warwick, Yasuo, Yone, 
 2. **Knowing when to play an effect.** In order of preference:
    - **Live Client Data API values for the active player:** champion, skin ID, ability levels, resource value (mana / energy / champion bar), health, movement speed, plus the player list and the event list (kills and assists).
      Examples: Azir's abilities are recognised by the mana they cost right after the key is pressed; Warwick's Blood Hunt by his own movement speed.
-   - **The player's own ability bar,** when the API does not expose the needed state (for example whether an ability icon has switched to its "recast" picture, or is on cooldown). The app takes an ordinary Windows screen capture (GDI `BitBlt`) of a small rectangle around the player's own ability icons at the bottom of the screen and compares it with the public ability icons.
+   - **The player's own ability bar,** when the API does not expose the needed state (for example whether an ability icon has switched to its "recast" picture, or is on cooldown). For the basic effects this is used only for champions without mana; mana champions are recognised from the mana cost instead. The app takes an ordinary Windows screen capture (GDI `BitBlt`) of a small rectangle around the player's own ability icons at the bottom of the screen and compares it with the public ability icons.
    - **The player's own name plate.** To blink the ornaments red while the player's own champion is crowd-controlled, the app looks at the name plate above the player's own champion, where the game shows the crowd-control name and its remaining-time bar.
    - **Key state** of the player's own ability keys (`GetAsyncKeyState`, polled; no keyboard hook), only to time the animation.
 3. **Drawing.** A transparent, click-through, always-on-top window owned by Overleague draws the animation. Mouse and keyboard input pass straight through to the game.
@@ -85,7 +87,8 @@ Aatrox, Aphelios, Azir, Master Yi, Mordekaiser, Pantheon, Warwick, Yasuo, Yone, 
 
 ## Complete list of what can appear on screen
 
-- Corner ornaments themed to the player's champion and skin.
+- Corner ornaments themed to the player's champion and skin (for champions without custom effects: colored from the champion's portrait with a role motif).
+- Nothing inside the minimap area: the overlay window leaves a configurable rectangle at the bottom-right (or bottom-left) corner completely empty so the minimap is never covered.
 - Animations when the player casts an ability or ultimate, gets a takedown, or dies.
 - Timers and gauges for the **player's own** state: remaining time of the player's own ability, the player's own resource bar, stacks of the player's own passive.
 - A red blink of the ornaments while the player's own champion is crowd-controlled.
@@ -97,7 +100,7 @@ Aatrox, Aphelios, Azir, Master Yi, Mordekaiser, Pantheon, Warwick, Yasuo, Yone, 
 **Files written (next to the exe; the regular build uses `%LOCALAPPDATA%\Overleague`):**
 
 - Settings (`suite.json`, `config_*.json`) and a text log (`overlay.log`, in Korean).
-- Downloaded public ability icons and champion portraits.
+- Public ability icons and champion portraits (bundled; downloaded only if missing).
 - Calibration captures: for some champions the app may save up to 30 small screenshots of the player's own bottom HUD strip (`hud_probe_*` folders) so that icon matching can be tuned. They stay on the PC and are never uploaded.
 
 **Network destinations:**
