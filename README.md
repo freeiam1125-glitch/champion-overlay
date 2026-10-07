@@ -4,7 +4,7 @@
 
 When you cast an ability or your ultimate, Overleague plays a short themed animation on your own screen, matched to your champion and skin. It is decoration: it does not read or change the game, does not send input, and does not look for other players on your screen.
 
-Thirty champions have custom, hand-made effects. Every other champion is shown as locked ("coming soon") in the app; effects for all champions are planned.
+Thirty-two champions have custom, hand-made effects. Every other champion is shown as locked ("coming soon") in the app; effects for all champions are planned.
 
 > Overleague isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
 
@@ -56,12 +56,12 @@ The pictures below are rendered by the app's own preview with no game running. T
 
 ### Where on the screen
 
-- **Aatrox, Aphelios, Azir, Caitlyn, Cho'Gath, Evelynn, Ezreal, Fiddlesticks, Hwei, Jhin, Karthus, Kayle, K'Sante, Mel, Nocturne, Pantheon, Pyke, Renekton, Urgot, Varus, Veigar, Viktor, Volibear, Warwick, Yasuo, Yone, Zac, Zeri:** effects are drawn only along the edges, the corners and a thin strip at the top. The middle of the screen is left clear.
+- **Aatrox, Aphelios, Azir, Caitlyn, Cho'Gath, Evelynn, Ezreal, Fiddlesticks, Hwei, Jhin, Karthus, Kayle, K'Sante, Lissandra, Mel, Nocturne, Pantheon, Pyke, Renekton, Twitch, Urgot, Varus, Veigar, Viktor, Volibear, Warwick, Yasuo, Yone, Zac, Zeri:** effects are drawn only along the edges, the corners and a thin strip at the top. The middle of the screen is left clear.
 - **Master Yi and Mordekaiser** (the first two that were made): during the ultimate they draw a translucent full-screen frame — a vignette that is strongest at the edges, with light streaks and particles that can pass over the play area. Nothing opaque is placed over the middle.
 
 ## Supported champions
 
-**Custom effects:** Aatrox, Aphelios, Azir, Caitlyn, Cho'Gath, Evelynn, Ezreal, Fiddlesticks, Hwei, Jhin, Karthus, Kayle, K'Sante, Master Yi, Mel, Mordekaiser, Nocturne, Pantheon, Pyke, Renekton, Urgot, Varus, Veigar, Viktor, Volibear, Warwick, Yasuo, Yone, Zac, Zeri. Most have variants that follow the player's current skin (read from the Live Client Data API skin ID).
+**Custom effects:** Aatrox, Aphelios, Azir, Caitlyn, Cho'Gath, Evelynn, Ezreal, Fiddlesticks, Hwei, Jhin, Karthus, Kayle, K'Sante, Lissandra, Master Yi, Mel, Mordekaiser, Nocturne, Pantheon, Pyke, Renekton, Twitch, Urgot, Varus, Veigar, Viktor, Volibear, Warwick, Yasuo, Yone, Zac, Zeri. Most have variants that follow the player's current skin (read from the Live Client Data API skin ID).
 
 **All other champions:** listed in the app but locked, with a "coming soon" note. Champion-specific effects are planned for all of them.
 
@@ -70,7 +70,7 @@ The pictures below are rendered by the app's own preview with no game running. T
 1. **Detecting a game.** The app polls `https://127.0.0.1:2999/liveclientdata/` (Riot's official local API). If the active player is on a supported champion, that champion's overlay is created.
 2. **Knowing when to play an effect.** In order of preference:
    - **Live Client Data API values for the active player:** champion, skin ID, ability levels, resource value (mana / energy / champion bar), health, movement speed, plus the player list and the event list (kills and assists).
-     Examples: Azir's, Mel's, Veigar's, Nocturne's, Pyke's, Fiddlesticks', Karthus', Varus', Ezreal's, Caitlyn's, Zeri's, Viktor's, Cho'Gath's, Hwei's, Urgot's, Evelynn's, Volibear's, Kayle's, K'Sante's and Jhin's abilities are recognised by the mana they cost right after the key is pressed; Warwick's Blood Hunt by his own movement speed; Renekton has no mana, so his abilities are read from key presses and a Fury drop marks empowered casts; Veigar's Phenomenal Evil display shows the player's own ability power value. The ability keys the app listens for can be set in Settings: the default mouse scheme (Q/W/E/R), the keyboard (WASD) movement scheme (right click / Shift / E / R), or custom keys.
+     Examples: Azir's, Mel's, Veigar's, Nocturne's, Pyke's, Fiddlesticks', Karthus', Varus', Ezreal's, Caitlyn's, Zeri's, Viktor's, Cho'Gath's, Hwei's, Urgot's, Evelynn's, Volibear's, Kayle's, K'Sante's, Jhin's, Lissandra's and Twitch's abilities are recognised by the mana they cost right after the key is pressed; Warwick's Blood Hunt by his own movement speed; Renekton has no mana, so his abilities are read from key presses and a Fury drop marks empowered casts; Veigar's Phenomenal Evil display shows the player's own ability power value. The ability keys the app listens for can be set in Settings: the default mouse scheme (Q/W/E/R), the keyboard (WASD) movement scheme (right click / Shift / E / R), or custom keys.
    - **The player's own ability bar,** when the API does not expose the needed state (for example whether an ability icon has switched to its "recast" picture, or is on cooldown). The app takes an ordinary Windows screen capture (GDI `BitBlt`) of a small rectangle around the player's own ability icons at the bottom of the screen and compares it with the public ability icons.
    - **The player's own name plate.** To blink the ornaments red while the player's own champion is crowd-controlled, the app looks at the name plate above the player's own champion, where the game shows the crowd-control name and its remaining-time bar.
    - **Key state** of the player's own ability keys (`GetAsyncKeyState`, polled; no keyboard hook), only to time the animation.
