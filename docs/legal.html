@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overleague — Privacy, Terms, Refunds</title>
+<link rel="icon" href="img/icon.png">
+<style>
+:root{--bg:#0b0d11;--line:rgba(255,255,255,.08);--text:#e8eaee;--muted:#8a919e;--dim:#5c636f;--accent:#d8b876;--surface2:#1a1e26}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;font-size:16px;line-height:1.7}
+a{color:var(--accent);text-decoration:none}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px 60px}
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:14px;height:60px;padding-bottom:0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:var(--text)}
+.brand img{width:28px;height:28px;border-radius:8px}
+.lang{margin-left:auto;display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.lang button{background:transparent;border:0;color:var(--muted);padding:6px 11px;font-weight:700;font-size:12px;cursor:pointer}
+.lang button.on{background:var(--surface2);color:var(--text)}
+h1{font-size:30px;margin:40px 0 8px}
+h2{font-size:22px;margin:44px 0 10px;padding-top:10px;border-top:1px solid var(--line)}
+h3{font-size:16px;margin:20px 0 4px}
+p,li{color:var(--muted)}
+.updated{color:var(--dim);font-size:13px}
+[data-en]{display:none}
+html.en [data-ko]{display:none}
+html.en [data-en]{display:revert}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="img/icon.png" alt=""> Overleague</a>
+<div class="lang"><button id="ko" class="on" onclick="setLang('ko')">한국어</button><button id="en" onclick="setLang('en')">EN</button></div></div></header>
+<main class="wrap">
+<h1 data-ko>정책</h1><h1 data-en>Policies</h1>
+<p class="updated">Last updated: 2026-10-29</p>
+
+<h2 id="privacy" data-ko>개인정보 처리방침</h2><h2 id="privacy" data-en>Privacy policy</h2>
+<div data-ko>
+<p>Overleague(이하 "프로그램")는 개인 개발자(연락처: freeiam77@gmail.com)가 만들어 배포합니다. 프로그램은 최소한의 정보만 다루며, 아래에 적은 것 말고는 어떤 정보도 수집·전송하지 않습니다.</p>
+<h3>게임 중 PC 안에서만 읽는 정보</h3>
+<ul><li>라이엇 Live Client Data API(https://127.0.0.1:2999)에서 내 챔피언·스킨·레벨·스킬·자원·체력·버프와 처치 이벤트. 게임 중에만, PC 안에서만 읽고 어디에도 보내지 않습니다.</li>
+<li>내 화면의 스킬 칸·이름표·숙련도 창 같은 작은 영역의 캡처. 쿨다운·CC 상태·숙련도 레벨을 알아내는 데만 쓰고, 저장하거나 전송하지 않습니다.</li>
+<li>스킬 키 입력 상태. 연출 타이밍에만 쓰며 기록하지 않습니다.</li></ul>
+<h3>선택 사항: 계정과 구독</h3>
+<ul><li>계정을 만들면 이메일 주소와 비밀번호 검증값(비밀번호 원문이 아님)을 프로그램의 저장소(GitHub)에 암호화해 보관합니다. 구독을 이 계정에 묶고 한 번에 한 PC에서만 쓰이게 하는 데 씁니다.</li>
+<li>결제는 결제 대행사(Lemon Squeezy)가 처리합니다. 카드 정보는 프로그램이나 개발자에게 전달되지 않으며, 대행사의 개인정보 처리방침이 적용됩니다.</li>
+<li>라이엇 계정 정보(비밀번호·토큰)는 어떤 경우에도 수집하지 않습니다.</li></ul>
+<h3>보관과 삭제</h3>
+<p>설정·로그·내가 만든 오버레이는 PC의 프로그램 폴더에만 저장됩니다. 계정 삭제를 원하면 위 이메일로 요청하면 지웁니다.</p>
+</div>
+<div data-en>
+<p>Overleague (the "app") is made and distributed by an individual developer (contact: freeiam77@gmail.com). The app handles the minimum and collects or transmits nothing beyond what is listed here.</p>
+<h3>Read locally during a game only</h3>
+<ul><li>Riot's Live Client Data API (https://127.0.0.1:2999): your own champion, skin, level, abilities, resources, health, buffs and takedown events. Read only during a game, only on your PC, never sent anywhere.</li>
+<li>Small captures of your own HUD (ability bar, name plate, mastery window), used only to detect cooldowns, crowd control and mastery level. Never stored or uploaded.</li>
+<li>The state of your ability keys, used only to time the effects. Not recorded.</li></ul>
+<h3>Optional: account and subscription</h3>
+<ul><li>If you create an account, your e-mail address and a password verifier (not the password itself) are stored encrypted in the app's backend (GitHub). They tie the subscription to you and limit it to one PC at a time.</li>
+<li>Payments are processed by our merchant of record (Lemon Squeezy). Card details never reach the app or the developer; the processor's privacy policy applies.</li>
+<li>Riot account credentials are never collected.</li></ul>
+<h3>Retention and deletion</h3>
+<p>Settings, logs and your custom overlays live only in the app folder on your PC. E-mail the address above to delete your account.</p>
+</div>
+
+<h2 id="terms" data-ko>이용약관</h2><h2 id="terms" data-en>Terms of service</h2>
+<div data-ko>
+<ul><li>프로그램은 리그 오브 레전드 화면에 꾸밈 연출을 더하는 서드파티 프로그램이며, 라이엇 게임즈가 만들거나 보증하지 않습니다.</li>
+<li>프로그램은 게임을 변경하거나 입력을 자동화하지 않으며, 플레이에 유리한 정보를 제공하지 않습니다. 사용자는 라이엇의 이용약관과 서드파티 정책을 지켜야 합니다.</li>
+<li>구독은 월 또는 연 단위로 자동 갱신되며 언제든 해지할 수 있습니다. 해지하면 남은 기간이 끝날 때까지 쓸 수 있습니다.</li>
+<li>내가 만든 오버레이에 넣는 그림은 본인이 권리를 가진 것이어야 합니다.</li>
+<li>프로그램은 있는 그대로 제공되며, 게임 업데이트로 일부 기능이 잠시 동작하지 않을 수 있습니다. 개발자는 합리적인 범위에서 빨리 고칩니다.</li>
+<li>약관은 바뀔 수 있으며, 바뀌면 이 페이지에 날짜와 함께 적습니다.</li></ul>
+</div>
+<div data-en>
+<ul><li>The app is a third-party cosmetic add-on for League of Legends and is neither made nor endorsed by Riot Games.</li>
+<li>The app does not modify the game, automate input, or provide information that gives a gameplay advantage. You must follow Riot's terms of service and third-party policies.</li>
+<li>Subscriptions renew monthly or yearly and can be cancelled at any time; access continues until the end of the paid period.</li>
+<li>Images you add to your custom overlays must be ones you have the rights to use.</li>
+<li>The app is provided as is; game updates may temporarily break a feature, which the developer will fix within a reasonable time.</li>
+<li>These terms may change; changes are posted here with a date.</li></ul>
+</div>
+
+<h2 id="refund" data-ko>환불 정책</h2><h2 id="refund" data-en>Refund policy</h2>
+<div data-ko>
+<ul><li>결제 뒤 14일 안에, 구독 기능(전체 챔피언 또는 추가 오버레이)을 실제로 쓰지 않았다면 전액 환불합니다.</li>
+<li>프로그램이 사용자 PC에서 동작하지 않고 개발자가 합리적인 기간 안에 고치지 못하면, 사용 여부와 관계없이 환불합니다.</li>
+<li>환불은 freeiam77@gmail.com 으로 결제 이메일과 주문 번호를 보내면 결제 대행사를 통해 처리됩니다(보통 5~10 영업일).</li>
+<li>자동 갱신된 결제는 갱신 뒤 7일 안에 요청하면 환불합니다.</li></ul>
+</div>
+<div data-en>
+<ul><li>Full refund within 14 days of purchase if you have not used the subscription features (all champions or extra overlays).</li>
+<li>If the app does not work on your PC and the developer cannot fix it within a reasonable time, you get a refund regardless of use.</li>
+<li>E-mail freeiam77@gmail.com with your purchase e-mail and order number; the refund is issued through the payment processor (usually 5–10 business days).</li>
+<li>An automatic renewal is refunded if requested within 7 days of the renewal.</li></ul>
+</div>
+</main>
+<script>
+function setLang(l){document.documentElement.className=l==='en'?'en':'';document.documentElement.lang=l;document.getElementById('ko').className=l==='ko'?'on':'';document.getElementById('en').className=l==='en'?'on':'';try{localStorage.setItem('lang',l)}catch(e){}}
+(function(){var l=null;try{l=localStorage.getItem('lang')}catch(e){}if(!l){l=(navigator.language||'').toLowerCase().startsWith('ko')?'ko':'en'}setLang(l)})();
+</script>
+</body>
+</html>

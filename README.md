@@ -4,7 +4,9 @@
 
 When you cast an ability or your ultimate, Overleague plays a short themed animation on your own screen, matched to your champion and skin. It is decoration: it does not read or change the game, does not send input, and does not look for other players on your screen.
 
-Thirty-two champions have custom, hand-made effects. Every other champion is shown as locked ("coming soon") in the app; effects for all champions are planned.
+Every champion has custom, hand-made effects (most in two design styles). Players can also build their own overlays from pre-drawn parts, colors and their own images.
+
+**Website:** https://freeiam1125-glitch.github.io/champion-overlay/
 
 > Overleague isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
 
@@ -26,7 +28,7 @@ The review build is the same program as the regular build with three differences
 |---|---|
 | Platform | Windows 10 / 11, single `.exe` |
 | Game | League of Legends |
-| Price | Free (closed testing with a small group) |
+| Price | Free with a monthly rotation of 10 champions and 1 custom overlay; optional subscription for all champions and unlimited custom overlays |
 | Data sources | Riot **Live Client Data API** on the local machine; plain screen captures of the player's **own** ability bar and own name plate |
 | Game memory / game files / input to the game | **Not read, not modified, not sent** |
 | Enemy champions | **Not searched for on screen.** No positions, health, cooldowns or timers of other players are shown |

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overleague</title>
+<meta name="description" content="League of Legends 챔피언별 화면 가장자리 연출 오버레이. 스킬을 쓰면 내 화면 모서리에 그 챔피언의 연출이 뜹니다. Cosmetic champion-themed screen-edge effects for League of Legends.">
+<link rel="icon" href="img/icon.png">
+<style>
+:root{--bg:#0b0d11;--surface:#13161c;--surface2:#1a1e26;--line:rgba(255,255,255,.08);--text:#e8eaee;--muted:#8a919e;--dim:#5c636f;--accent:#d8b876;--accent-ink:#15110a;--good:#7fd18b}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:#efd49a}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:10;background:rgba(11,13,17,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:14px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:var(--text)}
+.brand img{width:28px;height:28px;border-radius:8px}
+nav{margin-left:auto;display:flex;gap:22px;align-items:center}
+nav a{color:var(--muted);font-weight:600;font-size:14px}
+nav a:hover{color:var(--text)}
+.lang{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.lang button{background:transparent;border:0;color:var(--muted);padding:6px 11px;font-weight:700;font-size:12px;cursor:pointer}
+.lang button.on{background:var(--surface2);color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:700;border:1px solid var(--line);background:var(--surface2);color:var(--text);font-size:15px}
+.btn:hover{border-color:rgba(216,184,118,.6);color:var(--text)}
+.btn.go{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.go:hover{background:#e6c98a;color:var(--accent-ink)}
+.hero{padding:72px 0 40px;display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:46px;line-height:1.15;margin:0 0 14px;font-weight:800;letter-spacing:-.5px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{color:var(--muted);font-size:17px;margin:0 0 26px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.hero .note{color:var(--dim);font-size:13px;margin-top:14px}
+.shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.shot img{display:block;width:100%;height:auto}
+section{padding:56px 0}
+h2{font-size:28px;margin:0 0 6px;font-weight:800;letter-spacing:-.3px}
+.sub{color:var(--muted);margin:0 0 28px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.card .n{display:inline-block;width:28px;height:28px;border-radius:8px;background:rgba(216,184,118,.16);color:var(--accent);font-weight:800;text-align:center;line-height:28px;margin-bottom:12px}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gallery figure{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.gallery img{display:block;width:100%;height:auto}
+.gallery figcaption{padding:10px 14px;color:var(--muted);font-size:13px}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column}
+.plan.hot{border-color:rgba(216,184,118,.7)}
+.plan .name{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.4px;text-transform:uppercase}
+.plan .price{font-size:34px;font-weight:800;margin:6px 0 2px}
+.plan .price small{font-size:14px;color:var(--muted);font-weight:600}
+.plan .after{color:var(--dim);font-size:13px;margin-bottom:14px}
+.plan ul{margin:0 0 18px;padding-left:18px;color:var(--muted);font-size:14px}
+.plan li{margin:4px 0}
+.plan .badge{align-self:flex-start;background:rgba(216,184,118,.16);color:var(--accent);font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px;margin-bottom:10px}
+.plan .btn{margin-top:auto;justify-content:center}
+.faq details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between}
+.faq summary::after{content:"+";color:var(--dim)}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--muted);margin:10px 0 0;font-size:15px}
+footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--dim);font-size:12px}
+footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+footer .links a{color:var(--muted)}
+[data-en]{display:none}
+html.en [data-ko]{display:none}
+html.en [data-en]{display:revert}
+@media (max-width:860px){.hero{grid-template-columns:1fr;padding-top:40px}.hero h1{font-size:34px}.grid3,.plans,.gallery{grid-template-columns:1fr}nav a.hide-m{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="#"><img src="img/icon.png" alt=""> Overleague</a>
+  <nav>
+    <a class="hide-m" href="#how" data-ko>어떻게 되나</a><a class="hide-m" href="#how" data-en>How it works</a>
+    <a class="hide-m" href="#maker" data-ko>만들기</a><a class="hide-m" href="#maker" data-en>Create</a>
+    <a class="hide-m" href="#pricing" data-ko>가격</a><a class="hide-m" href="#pricing" data-en>Pricing</a>
+    <a class="hide-m" href="#faq">FAQ</a>
+    <div class="lang"><button id="ko" class="on" onclick="setLang('ko')">한국어</button><button id="en" onclick="setLang('en')">EN</button></div>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <h1 data-ko>스킬을 쓰면, 내 화면이 <em>그 챔피언</em>이 됩니다</h1>
+      <h1 data-en>Cast a spell. Your screen becomes <em>your champion.</em></h1>
+      <p data-ko>Overleague는 리그 오브 레전드용 화면 가장자리 연출 프로그램입니다. 챔피언마다 다르게 그린 모서리 장식과 Q·W·E·R·처치 연출이 게임 화면의 테두리에 뜹니다. 게임을 건드리지 않는 순수 꾸밈이라 플레이에는 아무 영향이 없습니다.</p>
+      <p data-en>Overleague draws cosmetic, champion-themed effects along the edges and corners of your own screen while you play League of Legends. Every champion has its own corner art and ability effects. It never touches the game and never affects play.</p>
+      <div class="cta">
+        <a class="btn go" href="https://github.com/freeiam1125-glitch/champion-overlay/raw/release/Overleague.exe"><span data-ko>Windows용 다운로드</span><span data-en>Download for Windows</span></a>
+        <a class="btn" href="#how"><span data-ko>어떻게 되는지 보기</span><span data-en>See how it works</span></a>
+      </div>
+      <p class="note" data-ko>Windows 10/11 · exe 하나 · 무료로 시작 (매달 바뀌는 무료 챔피언 10명)</p>
+      <p class="note" data-en>Windows 10/11 · single exe · free to start (10 free champions, rotating monthly)</p>
+    </div>
+    <div class="shot"><img src="img/ingame_viego.jpg" alt="In-game screenshot with Overleague corner effects"></div>
+  </section>
+
+  <section id="how">
+    <h2 data-ko>어떻게 되나</h2><h2 data-en>How it works</h2>
+    <p class="sub" data-ko>설치 없이 실행하면 끝. 게임이 켜지면 알아서 내 챔피언을 찾습니다.</p>
+    <p class="sub" data-en>No installer. Run it once; it detects your champion when a game starts.</p>
+    <div class="grid3">
+      <div class="card"><div class="n">1</div><h3 data-ko>실행</h3><h3 data-en>Run</h3><p data-ko>exe를 실행하면 트레이에 상주합니다. 챔피언 화면에서 쓰고 싶은 챔피언을 켜 두세요.</p><p data-en>Launch the exe; it lives in the tray. Turn on the champions you want in the Champions screen.</p></div>
+      <div class="card"><div class="n">2</div><h3 data-ko>게임 시작</h3><h3 data-en>Start a game</h3><p data-ko>라이엇의 공식 Live Client Data API로 내 챔피언·스킨을 읽어 그 챔피언의 모서리 장식을 띄웁니다.</p><p data-en>Riot's official Live Client Data API tells it your champion and skin; the matching corner art appears.</p></div>
+      <div class="card"><div class="n">3</div><h3 data-ko>스킬 사용</h3><h3 data-en>Cast</h3><p data-ko>Q·W·E·R, 처치, CC마다 짧은 연출이 화면 테두리에 뜹니다. 플레이 영역은 가리지 않습니다.</p><p data-en>Each ability, takedown and crowd-control state plays a short effect on the screen edges. The play area is never covered.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-ko>챔피언마다 다른 그림</h2><h2 data-en>Every champion, its own art</h2>
+    <p class="sub" data-ko>모든 챔피언에 손으로 그린 모서리 장식과 연출이 있습니다. 전설급 스킨은 그 스킨에 맞춰 따로 그렸습니다.</p>
+    <p class="sub" data-en>Hand-drawn corner art and effects for every champion. Legendary skins get their own art.</p>
+    <div class="gallery">
+      <figure><img src="img/ingame_thresh.jpg" alt="Thresh"><figcaption data-ko>쓰레쉬 — 사슬·랜턴, 영혼 감옥</figcaption><figcaption data-en>Thresh — chain, lantern, The Box</figcaption></figure>
+      <figure><img src="img/ingame_zyra.jpg" alt="Zyra"><figcaption data-ko>자이라 — 가시 덩굴, 올가미 덩굴</figcaption><figcaption data-en>Zyra — thorn vines, Stranglethorns</figcaption></figure>
+      <figure><img src="img/ingame_soraka.jpg" alt="Soraka"><figcaption data-ko>소라카 — 초승달과 별가루</figcaption><figcaption data-en>Soraka — crescent and stardust</figcaption></figure>
+      <figure><img src="img/champions.jpg" alt="Champions screen"><figcaption data-ko>챔피언 화면 — 스킨별 미리보기와 구/신 디자인</figcaption><figcaption data-en>Champions screen — per-skin preview, two design styles</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="maker">
+    <h2 data-ko>직접 만들기</h2><h2 data-en>Make your own</h2>
+    <p class="sub" data-ko>부품을 고르고, 색을 바꾸고, 내 그림(PNG·GIF)을 올리고, 스킬마다 연출을 정하세요. 코드는 필요 없습니다.</p>
+    <p class="sub" data-en>Pick parts, change colors, drop in your own PNG/GIF images, choose an effect per ability. No code.</p>
+    <div class="shot"><img src="img/maker.jpg" alt="Overlay maker"></div>
+  </section>
+
+  <section id="pricing">
+    <h2 data-ko>가격</h2><h2 data-en>Pricing</h2>
+    <p class="sub" data-ko>무료로 시작하고, 전부 쓰고 싶을 때 구독하세요. 언제든 해지됩니다.</p>
+    <p class="sub" data-en>Start free. Subscribe when you want everything. Cancel anytime.</p>
+    <div class="plans">
+      <div class="plan"><div class="name" data-ko>무료</div><div class="name" data-en>Free</div><div class="price">₩0</div><div class="after" data-ko>&nbsp;</div><div class="after" data-en>&nbsp;</div>
+        <ul data-ko><li>매달 바뀌는 무료 챔피언 10명 (포지션마다 2명)</li><li>내 오버레이 1개</li><li>두 가지 디자인</li></ul>
+        <ul data-en><li>10 free champions a month (2 per position)</li><li>1 custom overlay</li><li>Both design styles</li></ul>
+        <a class="btn" href="https://github.com/freeiam1125-glitch/champion-overlay/raw/release/Overleague.exe"><span data-ko>다운로드</span><span data-en>Download</span></a></div>
+      <div class="plan hot"><div class="badge" data-ko>첫 달 할인</div><div class="badge" data-en>First month deal</div><div class="name" data-ko>월간</div><div class="name" data-en>Monthly</div>
+        <div class="price"><span data-ko>₩1,900</span><span data-en>$1.99</span> <small data-ko>첫 달</small><small data-en>first month</small></div>
+        <div class="after" data-ko>이후 월 ₩4,900</div><div class="after" data-en>then $4.99 / month</div>
+        <ul data-ko><li>모든 챔피언</li><li>내 오버레이 무제한</li><li>언제든 해지</li></ul>
+        <ul data-en><li>All champions</li><li>Unlimited custom overlays</li><li>Cancel anytime</li></ul>
+        <a class="btn go" href="#faq"><span data-ko>곧 열립니다</span><span data-en>Coming soon</span></a></div>
+      <div class="plan"><div class="badge" data-ko>4달 무료</div><div class="badge" data-en>4 months free</div><div class="name" data-ko>연간</div><div class="name" data-en>Yearly</div>
+        <div class="price"><span data-ko>₩39,000</span><span data-en>$39.99</span> <small data-ko>/ 년</small><small data-en>/ year</small></div>
+        <div class="after" data-ko>월 ₩3,250 꼴</div><div class="after" data-en>≈ $3.33 / month</div>
+        <ul data-ko><li>모든 챔피언</li><li>내 오버레이 무제한</li><li>언제든 해지</li></ul>
+        <ul data-en><li>All champions</li><li>Unlimited custom overlays</li><li>Cancel anytime</li></ul>
+        <a class="btn" href="#faq"><span data-ko>곧 열립니다</span><span data-en>Coming soon</span></a></div>
+    </div>
+  </section>
+
+  <section id="faq" class="faq">
+    <h2>FAQ</h2>
+    <details><summary data-ko>안전한가요? 제재 위험은요?</summary><summary data-en>Is it safe? Can I get banned?</summary>
+      <p data-ko>Overleague는 라이엇이 서드파티 앱에 공식으로 열어 둔 Live Client Data API만 읽고, 게임 메모리·파일·네트워크를 건드리지 않으며 입력을 대신 넣지도 않습니다. 상대 정보를 보여 주지도 않습니다. 라이엇 개발자 포털에 등록된 앱입니다.</p>
+      <p data-en>Overleague reads only Riot's official Live Client Data API, never touches game memory, files or network, never sends input, and never shows information about other players. It is registered on the Riot Developer Portal.</p></details>
+    <details><summary data-ko>어떤 데이터를 쓰나요?</summary><summary data-en>What data does it use?</summary>
+      <p data-ko>게임 중 내 챔피언·스킨·스킬·자원·체력과 처치 이벤트(Live Client Data API), 내 스킬 칸·이름표를 작게 캡처해 쿨다운·CC를 알아내는 것(저장·전송 없음), 스킬 키 입력(연출 타이밍용)뿐입니다. 구독에는 이메일 계정을 선택적으로 씁니다. 자세한 것은 <a href="legal.html#privacy">개인정보 처리방침</a>에 있습니다.</p>
+      <p data-en>Your own champion, skin, abilities, resources, health and takedown events during a game (Live Client Data API); small captures of your own ability bar and name plate to detect cooldowns and CC (never stored or uploaded); your ability keys to time the effects. An optional e-mail account is used for subscriptions. See the <a href="legal.html#privacy">privacy policy</a>.</p></details>
+    <details><summary data-ko>결제는 언제 열리나요? 환불은요?</summary><summary data-en>When does checkout open? Refunds?</summary>
+      <p data-ko>결제는 준비 중이며 결제 대행(Lemon Squeezy)을 통해 열립니다. 결제 뒤 14일 안에, 아직 쓰지 않았다면 전액 환불합니다. 구독은 언제든 해지할 수 있고 남은 기간까지 쓸 수 있습니다. <a href="legal.html#refund">환불 정책</a></p>
+      <p data-en>Checkout is coming soon through our merchant of record (Lemon Squeezy). Full refund within 14 days of purchase if you haven't used it. Cancel anytime and keep access until the period ends. <a href="legal.html#refund">Refund policy</a></p></details>
+    <details><summary data-ko>Windows가 경고를 띄워요.</summary><summary data-en>Windows shows a warning.</summary>
+      <p data-ko>아직 코드 서명이 없어 SmartScreen이 "알 수 없는 앱"으로 표시할 수 있습니다. 추가 정보 → 실행을 누르면 됩니다. 파일은 위 다운로드 주소(GitHub)에서만 받으세요.</p>
+      <p data-en>The exe is not code-signed yet, so SmartScreen may flag it as unrecognised. Click More info → Run anyway. Only download from the GitHub link above.</p></details>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <div class="links"><a href="legal.html#privacy" data-ko>개인정보 처리방침</a><a href="legal.html#privacy" data-en>Privacy</a><a href="legal.html#terms" data-ko>이용약관</a><a href="legal.html#terms" data-en>Terms</a><a href="legal.html#refund" data-ko>환불 정책</a><a href="legal.html#refund" data-en>Refunds</a><a href="https://github.com/freeiam1125-glitch/champion-overlay">GitHub</a><a href="mailto:freeiam77@gmail.com" data-ko>문의</a><a href="mailto:freeiam77@gmail.com" data-en>Contact</a></div>
+  <div>Overleague isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</div>
+</div></footer>
+<script>
+function setLang(l){document.documentElement.className=l==='en'?'en':'';document.documentElement.lang=l;document.getElementById('ko').className=l==='ko'?'on':'';document.getElementById('en').className=l==='en'?'on':'';try{localStorage.setItem('lang',l)}catch(e){}}
+(function(){var l=null;try{l=localStorage.getItem('lang')}catch(e){}if(!l){l=(navigator.language||'').toLowerCase().startsWith('ko')?'ko':'en'}setLang(l)})();
+</script>
+</body>
+</html>
