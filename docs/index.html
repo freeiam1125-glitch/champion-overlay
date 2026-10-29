@@ -6,7 +6,7 @@
 <title>Overleague — 챔피언별 화면 연출 오버레이</title>
 <meta name="description" content="League of Legends 챔피언별 화면 가장자리 연출. 스킬을 쓰면 내 화면 모서리에 그 챔피언의 연출이 뜹니다. Cosmetic champion-themed screen-edge effects for League of Legends.">
 <meta property="og:title" content="Overleague">
-<meta property="og:description" content="Cast a spell. Your screen becomes your champion.">
+<meta property="og:description" content="Your screen edges, lit by your champion.">
 <meta property="og:image" content="img/home.jpg">
 <link rel="icon" href="img/icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
@@ -118,9 +118,9 @@ html.en [data-en]{display:revert}
 
 <main>
   <section class="hero"><div class="wrap">
-    <div class="kicker"><span data-ko>Riot 개발자 포털 등록 앱 · 게임 무개입</span><span data-en>Registered on the Riot Developer Portal · never touches the game</span></div>
-    <h1 data-ko>스킬을 쓰면, 내 화면이<br><em>그 챔피언</em>이 됩니다</h1>
-    <h1 data-en>Cast a spell.<br>Your screen becomes <em>your champion.</em></h1>
+    <div class="kicker"><span data-ko>리그 오브 레전드용 · 무료로 시작</span><span data-en>For League of Legends · Free to start</span></div>
+    <h1 data-ko>화면 테두리가<br><em>내 챔피언</em>으로 빛납니다</h1>
+    <h1 data-en>Your screen edges,<br>lit by <em>your champion.</em></h1>
     <p class="lead" data-ko>리그 오브 레전드용 화면 가장자리 연출. 챔피언마다 손으로 그린 모서리 장식과 Q·W·E·R·처치 연출이 게임 화면 테두리에 뜹니다. 플레이 영역은 절대 가리지 않습니다.</p>
     <p class="lead" data-en>Cosmetic effects along the edges of your screen for League of Legends. Hand-drawn corner art and ability effects for every champion. The play area is never covered.</p>
     <div class="cta">
@@ -205,16 +205,16 @@ html.en [data-en]{display:revert}
   <section id="faq"><div class="wrap">
     <div class="center"><p class="eyebrow">FAQ</p><h2 data-ko>자주 묻는 것</h2><h2 data-en>Questions</h2><p class="sub">&nbsp;</p></div>
     <div class="faq">
-    <details><summary data-ko>안전한가요? 제재 위험은요?</summary><summary data-en>Is it safe? Can I get banned?</summary>
-      <p data-ko>라이엇이 서드파티 앱에 공식으로 열어 둔 Live Client Data API만 읽고, 게임 메모리·파일·네트워크를 건드리지 않으며 입력을 대신 넣지도 않습니다. 상대 정보를 보여 주지도 않습니다. 라이엇 개발자 포털에 등록된 앱입니다.</p>
-      <p data-en>It reads only Riot's official Live Client Data API, never touches game memory, files or network, never sends input, and never shows information about other players. It is registered on the Riot Developer Portal.</p></details>
-    <details><summary data-ko>어떤 데이터를 쓰나요?</summary><summary data-en>What data does it use?</summary>
+    <details><summary><span data-ko>안전한가요? 제재 위험은요?</span><span data-en>Is it safe? Can I get banned?</span></summary>
+      <p data-ko>라이엇이 서드파티 앱에 공식으로 열어 둔 Live Client Data API만 읽고, 게임 메모리·파일·네트워크를 건드리지 않으며 입력을 대신 넣지도 않습니다. 상대 정보를 보여 주지도 않습니다.</p>
+      <p data-en>It reads only Riot's official Live Client Data API, never touches game memory, files or network, never sends input, and never shows information about other players.</p></details>
+    <details><summary><span data-ko>어떤 데이터를 쓰나요?</span><span data-en>What data does it use?</span></summary>
       <p data-ko>게임 중 내 챔피언·스킨·스킬·자원·체력과 처치 이벤트, 내 스킬 칸·이름표를 작게 캡처해 쿨다운·CC를 알아내는 것(저장·전송 없음), 스킬 키 입력(연출 타이밍용)뿐입니다. 자세한 것은 <a href="legal.html#privacy">개인정보 처리방침</a>에.</p>
       <p data-en>Your own champion, skin, abilities, resources, health and takedown events during a game; small captures of your own ability bar and name plate to detect cooldowns and CC (never stored or uploaded); your ability keys to time the effects. See the <a href="legal.html#privacy">privacy policy</a>.</p></details>
-    <details><summary data-ko>결제는 언제 열리나요? 환불은요?</summary><summary data-en>When does checkout open? Refunds?</summary>
+    <details><summary><span data-ko>결제는 언제 열리나요? 환불은요?</span><span data-en>When does checkout open? Refunds?</span></summary>
       <p data-ko>결제 대행(Lemon Squeezy)을 통해 곧 열립니다. 결제 뒤 14일 안에 쓰지 않았다면 전액 환불하고, 해지하면 남은 기간까지 쓸 수 있습니다. <a href="legal.html#refund">환불 정책</a></p>
       <p data-en>Soon, through our merchant of record (Lemon Squeezy). Full refund within 14 days if unused; cancel anytime and keep access until the period ends. <a href="legal.html#refund">Refund policy</a></p></details>
-    <details><summary data-ko>Windows가 경고를 띄워요.</summary><summary data-en>Windows shows a warning.</summary>
+    <details><summary><span data-ko>Windows가 경고를 띄워요.</span><span data-en>Windows shows a warning.</span></summary>
       <p data-ko>아직 코드 서명이 없어 SmartScreen이 "알 수 없는 앱"으로 표시할 수 있습니다. 추가 정보 → 실행. 파일은 이 페이지의 다운로드 주소(GitHub)에서만 받으세요.</p>
       <p data-en>The exe is not code-signed yet, so SmartScreen may flag it. Click More info → Run anyway. Only download from the GitHub link on this page.</p></details>
     </div>
